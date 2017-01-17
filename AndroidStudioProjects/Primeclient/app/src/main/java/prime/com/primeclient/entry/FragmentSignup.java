@@ -45,12 +45,13 @@ public class FragmentSignup extends Fragment implements View.OnClickListener {
         input_email = (EditText) getActivity().findViewById(R.id.input_email);
         input_password = (EditText) getActivity().findViewById(R.id.input_password);
         button_signup = (Button) getActivity().findViewById(R.id.button_signup);
+        button_signup.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_signup) {
-            Toast.makeText(getActivity(), input_name.getText().toString(), Toast.LENGTH_LONG).show();
+            //TODO:Send user details to url
         }
     }
 }
