@@ -18,7 +18,7 @@ public class ActivityEntry extends AppCompatActivity {
     void signup() {
         FragmentSignup signup = new FragmentSignup();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.activity_main, signup, "signup");
+        transaction.add(R.id.activity_entry, signup, "signup");
         transaction.addToBackStack("signup");
         transaction.commit();
     }
