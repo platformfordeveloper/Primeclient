@@ -4,7 +4,7 @@ package prime.com.primeclient.model.core;
  * Created by BrahmaRishi on 18/01/17.
  */
 
-public class SignUp {
+public class SignUpModel {
     String name;
     String email;
     String password;

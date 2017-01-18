@@ -14,8 +14,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import prime.com.primeclient.R;
-import prime.com.primeclient.model.core.SignUp;
+import prime.com.primeclient.controller.core.entry.SignUp;
+import prime.com.primeclient.model.core.SignUpModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,19 +61,53 @@ public class FragmentSignup extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_signup) {
-            SignUp signUp = new SignUp();
-            signUp.setName(input_name.getText().toString());
-            signUp.setEmail(input_email.getText().toString());
-            signUp.setPassword(input_password.getText().toString());
-
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-                String json=mapper.writeValueAsString(signUp);
-                Toast.makeText(getActivity(), json ,Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+            onclickclicked();
         }
     }
+
+    public SignUpModel bindSignUpModel() {
+        SignUpModel signUp = new SignUpModel();
+        signUp.setName(input_name.getText().toString());
+        signUp.setEmail(input_email.getText().toString());
+        signUp.setPassword(input_password.getText().toString());
+        return signUp;
+    }
+
+
+    void onclickclicked() {
+        SignUpModel signUp = bindSignUpModel();
+        String json = objtojson(signUp);
+        try {
+            String toast = post("http://192.168.1.100/posttest/", json);
+            Toast.makeText(getActivity(), toast, Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
+
+    String post(String url, String json) throws IOException {
+        OkHttpClient okHttpClient = new OkHttpClient();
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Response response = okHttpClient.newCall(request).execute();
+        return response.body().string();
+    }
+
+    String objtojson(SignUpModel signUp) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String json = mapper.writeValueAsString(signUp);
+            return json;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
