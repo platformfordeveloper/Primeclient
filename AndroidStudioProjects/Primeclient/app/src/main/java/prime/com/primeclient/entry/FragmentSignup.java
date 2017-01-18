@@ -3,7 +3,6 @@ package prime.com.primeclient.entry;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+
 import prime.com.primeclient.R;
+import prime.com.primeclient.model.core.SignUp;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,7 +55,19 @@ public class FragmentSignup extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_signup) {
-            //TODO:Send user details to url
+            SignUp signUp = new SignUp();
+            signUp.setName(input_name.getText().toString());
+            signUp.setEmail(input_email.getText().toString());
+            signUp.setPassword(input_password.getText().toString());
+
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                String json=mapper.writeValueAsString(signUp);
+                Toast.makeText(getActivity(), json ,Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 }
