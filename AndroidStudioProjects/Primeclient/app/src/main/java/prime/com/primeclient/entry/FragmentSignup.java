@@ -14,13 +14,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import prime.com.primeclient.R;
-import prime.com.primeclient.controller.core.entry.SignUp;
 import prime.com.primeclient.model.core.SignUpModel;
 
 /**
@@ -78,8 +80,7 @@ public class FragmentSignup extends Fragment implements View.OnClickListener {
         SignUpModel signUp = bindSignUpModel();
         String json = objtojson(signUp);
         try {
-            String toast = post("http://192.168.1.100/posttest/", json);
-            Toast.makeText(getActivity(), toast, Toast.LENGTH_SHORT).show();
+            post("http://192.168.1.100/posttest/", json);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,15 +89,32 @@ public class FragmentSignup extends Fragment implements View.OnClickListener {
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
 
-    String post(String url, String json) throws IOException {
-        OkHttpClient okHttpClient = new OkHttpClient();
+    void post(String url, String json) throws IOException {
+        OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
                 .build();
-        Response response = okHttpClient.newCall(request).execute();
-        return response.body().string();
+//        Response response = client.newCall(request).execute();
+//        return response.body().string();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                Headers responseHeaders = response.headers();
+                for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                }
+
+                System.out.println(response.body().string());
+            }
+        });
     }
 
     String objtojson(SignUpModel signUp) {
