@@ -1,4 +1,4 @@
-package prime.com.primeclient.model.core;
+package prime.com.primeclient.models.core;
 
 /**
  * Created by BrahmaRishi on 18/01/17.
