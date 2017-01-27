@@ -1,5 +1,6 @@
 package prime.com.primeclient.controllers.core.entry;
 
+import android.content.Context;
 import android.view.View;
 
 import java.io.IOException;
@@ -16,31 +17,41 @@ import prime.com.primeclient.models.core.LoginModel;
  */
 
 public class Login {
-    FragmentLogin view;
+    ILogin iLogin;
+    Context context;
 
     public Login(FragmentLogin view) {
-        this.view = view;
+        iLogin = view;
+        context = view.getContext();
     }
 
     public void onActivityCreated() {
-        view.initializeView();
+        iLogin.initializeView();
     }
 
     public void onClick(View v) {
-        LoginModel login = view.bindLoginModel();
+        LoginModel login = iLogin.bindLoginModel();
         switch (v.getId()) {
             case R.id.button_login:
                 Validator validator = new Validator();
                 if (validator.validateEmail(login.getEmail()) && validator.validatePassword(login.getPassword())) {
-                    view.showProgressDialog();
+                    iLogin.showProgressDialog();
                     String json = new Support().toJson(login);
                     Network network = new Network(this);
                     try {
-                        network.post(view.getResources().getString(R.string.loginUrl), json);
+                        network.post(context.getResources().getString(R.string.loginUrl), json);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
         }
+    }
+
+    public interface ILogin {
+        void initializeView();
+
+        LoginModel bindLoginModel();
+
+        void showProgressDialog();
     }
 }

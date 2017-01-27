@@ -16,12 +16,12 @@ import prime.com.primeclient.models.core.SignUpModel;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentSignup extends Fragment implements View.OnClickListener {
+public class FragmentSignup extends Fragment implements View.OnClickListener, SignUp.ISignUp {
 
-    View _rootView;
-    EditText input_name, input_email, input_password;
-    Button button_signup;
-    SignUp signUp;
+    private View _rootView;
+    private EditText input_name, input_email, input_password;
+    private Button button_signup;
+    private SignUp signUp;
 
     public FragmentSignup() {
         // Required empty public constructor
@@ -45,7 +45,8 @@ public class FragmentSignup extends Fragment implements View.OnClickListener {
         signUp.onActivityCreated();
     }
 
-    public void initializeView(){
+    @Override
+    public void initializeView() {
         input_name = (EditText) getActivity().findViewById(R.id.input_name);
         input_email = (EditText) getActivity().findViewById(R.id.input_email);
         input_password = (EditText) getActivity().findViewById(R.id.input_password);
@@ -54,18 +55,18 @@ public class FragmentSignup extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-        signUp.onClick(v);
-
-    }
-
-
-    public SignUpModel bindSignUpModel() {
+    public SignUpModel bindSignUp() {
         SignUpModel signUp = new SignUpModel();
         signUp.setName(input_name.getText().toString());
         signUp.setEmail(input_email.getText().toString());
         signUp.setPassword(input_password.getText().toString());
         return signUp;
+    }
+
+    @Override
+    public void onClick(View v) {
+        signUp.onClick(v);
+
     }
 
 }

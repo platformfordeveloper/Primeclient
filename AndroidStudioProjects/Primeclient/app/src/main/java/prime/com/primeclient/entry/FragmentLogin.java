@@ -17,7 +17,7 @@ import prime.com.primeclient.models.core.LoginModel;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentLogin extends Fragment implements View.OnClickListener {
+public class FragmentLogin extends Fragment implements View.OnClickListener ,Login.ILogin{
 
     private View _rootView;
     Login login;
@@ -48,6 +48,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         login.onActivityCreated();
     }
 
+    @Override
     public void initializeView() {
         input_email = (TextView) getActivity().findViewById(R.id.input_email);
         input_password = (TextView) getActivity().findViewById(R.id.input_password);
@@ -63,6 +64,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         login.onClick(v);
     }
 
+    @Override
     public LoginModel bindLoginModel() {
         LoginModel login = new LoginModel();
         login.setEmail(input_email.getText().toString());
@@ -80,6 +82,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         }
     }
 
+    @Override
     public void showProgressDialog() {
         progressDialog.show();
     }

@@ -1,5 +1,6 @@
 package prime.com.primeclient.controllers.core.entry;
 
+import android.content.Context;
 import android.view.View;
 
 import java.io.IOException;
@@ -16,21 +17,24 @@ import prime.com.primeclient.models.core.SignUpModel;
  */
 
 public class SignUp {
-    FragmentSignup view;
+    ISignUp iSignUp;
+
+    Context context;
 
     public SignUp(FragmentSignup view) {
-        this.view = view;
+        iSignUp = view;
+        context = view.getContext();
     }
 
     public void onClick(View v) {
         if (v.getId() == R.id.button_signup) {
             Validator validator = new Validator();
-            SignUpModel signUp = view.bindSignUpModel();
+            SignUpModel signUp = iSignUp.bindSignUp();
             if (validator.validateEmail(signUp.getEmail())) {
                 String json = new Support().toJson(signUp);
                 Network network = new Network(this);
                 try {
-                    network.post(view.getResources().getString(R.string.userUrl), json);
+                    network.post(context.getResources().getString(R.string.userUrl), json);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -39,6 +43,13 @@ public class SignUp {
     }
 
     public void onActivityCreated() {
-        view.initializeView();
+        iSignUp.initializeView();
+    }
+
+    public interface ISignUp {
+
+        void initializeView();
+
+        SignUpModel bindSignUp();
     }
 }
