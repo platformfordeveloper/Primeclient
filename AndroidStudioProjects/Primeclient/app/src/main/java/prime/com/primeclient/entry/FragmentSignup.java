@@ -42,6 +42,10 @@ public class FragmentSignup extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        signUp.onActivityCreated();
+    }
+
+    public void initializeView(){
         input_name = (EditText) getActivity().findViewById(R.id.input_name);
         input_email = (EditText) getActivity().findViewById(R.id.input_email);
         input_password = (EditText) getActivity().findViewById(R.id.input_password);
@@ -51,9 +55,8 @@ public class FragmentSignup extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.button_signup) {
-            signUp.onClick();
-        }
+        signUp.onClick(v);
+
     }
 
 

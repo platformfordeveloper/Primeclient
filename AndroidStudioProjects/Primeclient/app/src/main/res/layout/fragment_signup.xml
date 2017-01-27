@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     tools:context="prime.com.primeclient.entry.FragmentSignup">
 
-    <!-- TODO: Signup -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,10 +14,11 @@
         android:paddingTop="56dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp" />
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_launcher_prime" />
+
 
         <!--  Name Label -->
         <android.support.design.widget.TextInputLayout
