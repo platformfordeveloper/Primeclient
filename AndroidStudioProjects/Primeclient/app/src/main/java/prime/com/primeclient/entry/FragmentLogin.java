@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import prime.com.primeclient.R;
@@ -17,13 +18,14 @@ import prime.com.primeclient.models.core.LoginModel;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentLogin extends Fragment implements View.OnClickListener ,Login.ILogin{
+public class FragmentLogin extends Fragment implements View.OnClickListener, Login.ILogin {
 
     private View _rootView;
     Login login;
-    private TextView input_email;
-    private TextView input_password;
+    private EditText input_email;
+    private EditText input_password;
     private Button button_login;
+    private TextView text_signup;
     private ProgressDialog progressDialog = null;
 
     public FragmentLogin() {
@@ -50,12 +52,14 @@ public class FragmentLogin extends Fragment implements View.OnClickListener ,Log
 
     @Override
     public void initializeView() {
-        input_email = (TextView) getActivity().findViewById(R.id.input_email);
-        input_password = (TextView) getActivity().findViewById(R.id.input_password);
+        input_email = (EditText) getActivity().findViewById(R.id.input_email);
+        input_password = (EditText) getActivity().findViewById(R.id.input_password);
         button_login = (Button) getActivity().findViewById(R.id.button_login);
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Logging in ...");
         progressDialog.setIndeterminate(true);
+        text_signup = (TextView) getActivity().findViewById(R.id.text_signup);
+        text_signup.setOnClickListener(this);
         button_login.setOnClickListener(this);
     }
 
@@ -85,5 +89,10 @@ public class FragmentLogin extends Fragment implements View.OnClickListener ,Log
     @Override
     public void showProgressDialog() {
         progressDialog.show();
+    }
+
+    @Override
+    public void dismissProgressDialog(){
+        progressDialog.dismiss();
     }
 }

@@ -1,28 +1,32 @@
 package prime.com.primeclient.entry;
 
-import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import prime.com.primeclient.R;
+import prime.com.primeclient.controllers.core.entry.Entry;
+import prime.com.primeclient.controllers.core.entry.Login;
+import prime.com.primeclient.controllers.core.entry.SignUp;
 
-public class ActivityEntry extends AppCompatActivity {
+public class ActivityEntry extends AppCompatActivity implements Entry.IEntry, Login.CEntry,SignUp.CEntry {
+
+    Entry entry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry);
-        signup();
-
-        //TODO: check if logged in or not
+        entry = new Entry(this);
+        entry.onCreate();
     }
 
-    void signup() {
-//        FragmentSignup signup = new FragmentSignup();
-        FragmentLogin signup = new FragmentLogin();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.activity_entry, signup, "signup");
-        transaction.addToBackStack("signup");
-        transaction.commit();
+    @Override
+    public void showSignup() {
+        entry.showSignup();
+    }
+
+    @Override
+    public void showLogin() {
+        entry.showLogin();
     }
 }

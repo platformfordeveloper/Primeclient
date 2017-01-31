@@ -1,10 +1,11 @@
 package prime.com.primeclient.controllers.core.entry;
 
-import android.content.Context;
 import android.view.View;
 
 import java.io.IOException;
 
+import okhttp3.Headers;
+import okhttp3.Response;
 import prime.com.primeclient.R;
 import prime.com.primeclient.controllers.core.resources.Network;
 import prime.com.primeclient.controllers.core.resources.Support;
@@ -16,16 +17,19 @@ import prime.com.primeclient.models.core.LoginModel;
  * Created by BrahmaRishi on 27/01/17.
  */
 
-public class Login {
-    ILogin iLogin;
-    Context context;
+public class Login implements Network.INetwork {
+    private ILogin iLogin;
+    private CEntry comm;
+    private FragmentLogin fragment;
 
-    public Login(FragmentLogin view) {
-        iLogin = view;
-        context = view.getContext();
+    public Login(FragmentLogin fragment) {
+        this.fragment = fragment;
+        iLogin = fragment;
+        comm = (CEntry) fragment.getActivity();
     }
 
     public void onActivityCreated() {
+
         iLogin.initializeView();
     }
 
@@ -39,12 +43,27 @@ public class Login {
                     String json = new Support().toJson(login);
                     Network network = new Network(this);
                     try {
-                        network.post(context.getResources().getString(R.string.loginUrl), json);
+                        network.post(fragment.getActivity().getString(R.string.apiUrl) + "/authentication", json);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
+                break;
+            case R.id.text_signup:
+                comm.showSignup();
         }
+    }
+
+    @Override
+    public void networkCallback(Response response) {
+        iLogin.dismissProgressDialog();
+
+        Headers responseHeaders = response.headers();
+
+        for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+            System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
+        }
+
     }
 
     public interface ILogin {
@@ -52,6 +71,12 @@ public class Login {
 
         LoginModel bindLoginModel();
 
+        void dismissProgressDialog();
+
         void showProgressDialog();
+    }
+
+    public interface CEntry {
+        void showSignup();
     }
 }

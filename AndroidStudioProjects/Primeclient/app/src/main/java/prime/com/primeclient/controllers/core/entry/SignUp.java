@@ -1,10 +1,10 @@
 package prime.com.primeclient.controllers.core.entry;
 
-import android.content.Context;
 import android.view.View;
 
 import java.io.IOException;
 
+import okhttp3.Response;
 import prime.com.primeclient.R;
 import prime.com.primeclient.controllers.core.resources.Network;
 import prime.com.primeclient.controllers.core.resources.Support;
@@ -16,29 +16,34 @@ import prime.com.primeclient.models.core.SignUpModel;
  * Created by BrahmaRishi on 18/01/17.
  */
 
-public class SignUp {
+public class SignUp implements Network.INetwork{
     ISignUp iSignUp;
+    CEntry comm;
+    FragmentSignup fragment;
 
-    Context context;
-
-    public SignUp(FragmentSignup view) {
-        iSignUp = view;
-        context = view.getContext();
+    public SignUp(FragmentSignup fragment) {
+        this.fragment = fragment;
+        iSignUp = fragment;
+        comm = (CEntry) fragment.getActivity();
     }
 
     public void onClick(View v) {
-        if (v.getId() == R.id.button_signup) {
-            Validator validator = new Validator();
-            SignUpModel signUp = iSignUp.bindSignUp();
-            if (validator.validateEmail(signUp.getEmail())) {
-                String json = new Support().toJson(signUp);
-                Network network = new Network(this);
-                try {
-                    network.post(context.getResources().getString(R.string.userUrl), json);
-                } catch (IOException e) {
-                    e.printStackTrace();
+        switch (v.getId()) {
+            case R.id.button_signup:
+                Validator validator = new Validator();
+                SignUpModel signUp = iSignUp.bindSignUp();
+                if (validator.validateEmail(signUp.getEmail())) {
+                    String json = new Support().toJson(signUp);
+                    Network network = new Network(this);
+                    try {
+                        network.post(fragment.getActivity().getString(R.string.apiUrl) + "/users", json);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
+                break;
+            case R.id.text_login:
+                comm.showLogin();
         }
     }
 
@@ -46,10 +51,19 @@ public class SignUp {
         iSignUp.initializeView();
     }
 
+    @Override
+    public void networkCallback(Response response) {
+        comm.showLogin();
+    }
+
     public interface ISignUp {
 
         void initializeView();
 
         SignUpModel bindSignUp();
+    }
+
+    public interface CEntry {
+        void showLogin();
     }
 }

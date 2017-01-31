@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import prime.com.primeclient.R;
 import prime.com.primeclient.controllers.core.entry.SignUp;
@@ -22,6 +23,7 @@ public class FragmentSignup extends Fragment implements View.OnClickListener, Si
     private EditText input_name, input_email, input_password;
     private Button button_signup;
     private SignUp signUp;
+    private TextView text_login;
 
     public FragmentSignup() {
         // Required empty public constructor
@@ -52,6 +54,8 @@ public class FragmentSignup extends Fragment implements View.OnClickListener, Si
         input_password = (EditText) getActivity().findViewById(R.id.input_password);
         button_signup = (Button) getActivity().findViewById(R.id.button_signup);
         button_signup.setOnClickListener(this);
+        text_login = (TextView) getActivity().findViewById(R.id.text_login);
+        text_login.setOnClickListener(this);
     }
 
     @Override
@@ -66,7 +70,6 @@ public class FragmentSignup extends Fragment implements View.OnClickListener, Si
     @Override
     public void onClick(View v) {
         signUp.onClick(v);
-
     }
 
 }

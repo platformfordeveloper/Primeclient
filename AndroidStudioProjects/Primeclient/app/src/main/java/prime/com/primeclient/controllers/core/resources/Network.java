@@ -16,10 +16,10 @@ import okhttp3.Response;
  */
 
 public class Network {
-    Object object;
+    INetwork network;
 
     public Network(Object object) {
-        this.object = object;
+        network = (INetwork) object;
     }
 
     private static final MediaType JSON
@@ -33,8 +33,6 @@ public class Network {
                 .url(url)
                 .post(body)
                 .build();
-//        Response response = client.newCall(request).execute();
-//        return response.body().string();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -45,14 +43,12 @@ public class Network {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-                Headers responseHeaders = response.headers();
-                for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-                    System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                }
-
-                System.out.println(response.body().string());
+                network.networkCallback(response);
             }
         });
+    }
+
+    public interface INetwork {
+        void networkCallback(Response response);
     }
 }
