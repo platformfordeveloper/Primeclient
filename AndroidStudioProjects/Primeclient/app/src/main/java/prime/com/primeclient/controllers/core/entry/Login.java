@@ -1,5 +1,6 @@
 package prime.com.primeclient.controllers.core.entry;
 
+import android.content.Intent;
 import android.view.View;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import prime.com.primeclient.controllers.core.resources.Support;
 import prime.com.primeclient.controllers.core.resources.Validator;
 import prime.com.primeclient.entry.FragmentLogin;
 import prime.com.primeclient.models.core.LoginModel;
+import prime.com.primeclient.pos.ActivityPos;
 
 /**
  * Created by BrahmaRishi on 27/01/17.
@@ -57,13 +59,12 @@ public class Login implements Network.INetwork {
     @Override
     public void networkCallback(Response response) {
         iLogin.dismissProgressDialog();
-
         Headers responseHeaders = response.headers();
-
         for (int i = 0, size = responseHeaders.size(); i < size; i++) {
             System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
         }
-
+        Intent intent = new Intent(fragment.getActivity(), ActivityPos.class);
+        fragment.getActivity().startActivity(intent);
     }
 
     public interface ILogin {

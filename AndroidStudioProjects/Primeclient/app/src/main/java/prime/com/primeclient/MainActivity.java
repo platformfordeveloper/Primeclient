@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import prime.com.primeclient.entry.ActivityEntry;
+import prime.com.primeclient.pos.ActivityPos;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(this, ActivityEntry.class);
+        Intent intent = new Intent(this, ActivityPos.class);
         startActivity(intent);
     }
 }

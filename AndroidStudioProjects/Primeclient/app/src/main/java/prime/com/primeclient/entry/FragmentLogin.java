@@ -24,8 +24,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, Log
     Login login;
     private EditText input_email;
     private EditText input_password;
-    private Button button_login;
-    private TextView text_signup;
+    Button button_login;
+    TextView text_signup;
     private ProgressDialog progressDialog = null;
 
     public FragmentLogin() {
@@ -92,7 +92,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, Log
     }
 
     @Override
-    public void dismissProgressDialog(){
+    public void dismissProgressDialog() {
         progressDialog.dismiss();
     }
 }
