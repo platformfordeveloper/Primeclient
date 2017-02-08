@@ -38,6 +38,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener, Log
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         login = new Login(this);
+        login.onCreate();
         if (_rootView == null) {
             _rootView = inflater.inflate(R.layout.fragment_login, container, false);
         }

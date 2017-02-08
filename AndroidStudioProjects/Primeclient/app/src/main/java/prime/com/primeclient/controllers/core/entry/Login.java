@@ -30,8 +30,11 @@ public class Login implements Network.INetwork {
         comm = (CEntry) fragment.getActivity();
     }
 
-    public void onActivityCreated() {
+    public void onCreate() {
 
+    }
+
+    public void onActivityCreated() {
         iLogin.initializeView();
     }
 
@@ -69,11 +72,8 @@ public class Login implements Network.INetwork {
 
     public interface ILogin {
         void initializeView();
-
         LoginModel bindLoginModel();
-
         void dismissProgressDialog();
-
         void showProgressDialog();
     }
 
