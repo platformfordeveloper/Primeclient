@@ -1,6 +1,4 @@
-package prime.com.primeclient.models.pos;
-
-import android.util.Log;
+package prime.com.primeclient.models;
 
 
 /**
@@ -11,24 +9,15 @@ public class PosListItemModel {
     private String productName;
     private double rate;
     private double qty;
-    private String taxName;
     TaxModel tax;
     private double price;
 
-    public PosListItemModel(String productName, double qty, double rate, TaxModel tax, String taxName) {
+    public PosListItemModel(String productName, double qty, double rate, TaxModel tax) {
         this.productName = productName;
         this.qty = qty;
         this.rate = rate;
         this.tax = tax;
-        this.taxName = taxName;
-    }
-
-    public String getTaxName() {
-        return taxName;
-    }
-
-    public void setTaxName(String taxName) {
-        this.taxName = taxName;
+        this.price = qty * rate;
     }
 
     public String getProductName() {

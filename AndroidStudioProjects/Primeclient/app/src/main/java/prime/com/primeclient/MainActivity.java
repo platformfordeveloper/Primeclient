@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import prime.com.primeclient.entry.ActivityEntry;
 import prime.com.primeclient.pos.ActivityPos;
+import prime.com.primeclient.productdevelopment.ActivityCreateproduct;
 
 
 public class MainActivity extends AppCompatActivity {

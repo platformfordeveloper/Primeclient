@@ -12,7 +12,7 @@ import prime.com.primeclient.controllers.core.resources.Network;
 import prime.com.primeclient.controllers.core.resources.Support;
 import prime.com.primeclient.controllers.core.resources.Validator;
 import prime.com.primeclient.entry.FragmentLogin;
-import prime.com.primeclient.models.core.LoginModel;
+import prime.com.primeclient.models.LoginModel;
 import prime.com.primeclient.pos.ActivityPos;
 
 /**

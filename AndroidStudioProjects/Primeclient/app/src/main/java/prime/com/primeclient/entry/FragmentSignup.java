@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import prime.com.primeclient.R;
 import prime.com.primeclient.controllers.core.entry.SignUp;
-import prime.com.primeclient.models.core.SignUpModel;
+import prime.com.primeclient.models.SignUpModel;
 
 /**
  * A simple {@link Fragment} subclass.

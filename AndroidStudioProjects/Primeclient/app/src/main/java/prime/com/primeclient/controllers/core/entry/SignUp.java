@@ -10,7 +10,7 @@ import prime.com.primeclient.controllers.core.resources.Network;
 import prime.com.primeclient.controllers.core.resources.Support;
 import prime.com.primeclient.controllers.core.resources.Validator;
 import prime.com.primeclient.entry.FragmentSignup;
-import prime.com.primeclient.models.core.SignUpModel;
+import prime.com.primeclient.models.SignUpModel;
 
 /**
  * Created by BrahmaRishi on 18/01/17.

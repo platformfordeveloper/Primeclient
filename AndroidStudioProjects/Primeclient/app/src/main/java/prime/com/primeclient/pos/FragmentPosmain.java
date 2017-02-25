@@ -3,11 +3,14 @@ package prime.com.primeclient.pos;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import prime.com.primeclient.R;
 import prime.com.primeclient.controllers.pos.Posmain;
@@ -19,8 +22,10 @@ public class FragmentPosmain extends Fragment implements View.OnClickListener, P
 
     RecyclerView poslist;
     Posmain posmain;
-
     View _rootView;
+    FloatingActionButton fab;
+    TextView button_additem;
+    TextView input_total;
 
     public FragmentPosmain() {
         // Required empty public constructor
@@ -48,6 +53,11 @@ public class FragmentPosmain extends Fragment implements View.OnClickListener, P
     @Override
     public void initializeView() {
         poslist = (RecyclerView) getActivity().findViewById(R.id.poslist);
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.setOnClickListener(this);
+        button_additem = (TextView) getActivity().findViewById(R.id.button_additem);
+        button_additem.setOnClickListener(this);
+        input_total = (TextView) getActivity().findViewById(R.id.input_total);
     }
 
     @Override
@@ -61,5 +71,10 @@ public class FragmentPosmain extends Fragment implements View.OnClickListener, P
     @Override
     public void onClick(View view) {
         posmain.onClick(view);
+    }
+
+    @Override
+    public void setTotal(double total) {
+        input_total.setText(String.valueOf(total));
     }
 }

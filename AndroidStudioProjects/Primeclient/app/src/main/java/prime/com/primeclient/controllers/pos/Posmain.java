@@ -1,5 +1,6 @@
 package prime.com.primeclient.controllers.pos;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,12 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
 import prime.com.primeclient.R;
-import prime.com.primeclient.models.pos.PosListItemModel;
+import prime.com.primeclient.models.BillModel;
+import prime.com.primeclient.models.PosListItemModel;
 import prime.com.primeclient.pos.FragmentPosmain;
+import prime.com.primeclient.pos.FragmentProductselector;
 
 /**
  * Created by BrahmaRishi on 02/02/17.
@@ -24,12 +28,14 @@ public class Posmain {
     FragmentPosmain fragment;
     PoslistAdapter adapter;
     IPosmain iPosmain;
+    BillModel bill;
 
 
     public Posmain(FragmentPosmain fragment) {
         this.fragment = fragment;
         iPosmain = fragment;
         adapter();
+        bill = new BillModel();
     }
 
 
@@ -51,22 +57,30 @@ public class Posmain {
     }
 
     public void onClick(View view) {
-
+        if (view.getId() == R.id.fab)
+            addItem();
+        else if (view.getId() == R.id.button_additem) {
+            FragmentProductselector fragmentProductselector = new FragmentProductselector();
+            FragmentTransaction transaction = fragment.getFragmentManager().beginTransaction();
+            transaction.replace(R.id.activity_pos, fragmentProductselector, "pos");
+            transaction.commit();
+        }
     }
 
     void adapter() {
         adapter = new PoslistAdapter(fragment.getActivity());
+    }
+
+    void addItem() {
         List<PosListItemModel> list = adapter.getList();
-        PosListItemModel item1 = new PosListItemModel("Maggie", 1, 45.05, null, "");
-        list.add(item1);
-        PosListItemModel item2 = new PosListItemModel("Top Ramen", 1, 45.05, null, "");
-        list.add(item2);
-        PosListItemModel item3 = new PosListItemModel("Pepper", 1, 95, null, "");
-        list.add(item3);
-        PosListItemModel item4 = new PosListItemModel("Uniball", 1, 30, null, "");
-        list.add(item4);
-        PosListItemModel item5 = new PosListItemModel("Speaker", 1, 4500, null, "");
-        list.add(item5);
+
+        PosListItemModel item = new PosListItemModel("Maggie", 1, 45.05, null);
+        list.add(item);
+        bill.setList(list);
+        bill.setTOTAL( Math.round((bill.getTOTAL() + item.getPrice())*100.0)/100.0);
+
+        iPosmain.setTotal(bill.getTOTAL());
+        bill.getTOTAL();
         adapter.notifyDataSetChanged();
     }
 
@@ -116,6 +130,7 @@ public class Posmain {
             return list.size();
         }
 
+
     }
 
     //ViewHolder class
@@ -151,6 +166,8 @@ public class Posmain {
         */
     public interface IPosmain {
         void initializeView();
+
+        void setTotal(double total);
 
         void listAdapter();
     }

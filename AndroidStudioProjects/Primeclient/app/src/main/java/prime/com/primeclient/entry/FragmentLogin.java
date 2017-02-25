@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import prime.com.primeclient.R;
 import prime.com.primeclient.controllers.core.entry.Login;
-import prime.com.primeclient.models.core.LoginModel;
+import prime.com.primeclient.models.LoginModel;
 
 /**
  * A simple {@link Fragment} subclass.

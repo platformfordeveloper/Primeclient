@@ -1,21 +1,12 @@
-package prime.com.primeclient.models.core;
+package prime.com.primeclient.models;
 
 /**
- * Created by BrahmaRishi on 18/01/17.
+ * Created by BrahmaRishi on 27/01/17.
  */
 
-public class SignUpModel {
-    String name;
+public class LoginModel {
     String email;
     String password;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getEmail() {
         return email;

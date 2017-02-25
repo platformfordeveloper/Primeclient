@@ -32,6 +32,7 @@
 
             <TextView
                 android:layout_width="0dp"
+                android:id="@+id/input_total"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical"
@@ -57,19 +58,30 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="7"
+                android:layout_weight="4"
                 android:gravity="center_vertical"
                 android:paddingLeft="12dp"
                 android:text="Description"
                 android:textColor="#fff"
                 android:textSize="22sp" />
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_vertical"
+                android:paddingLeft="12dp"
+                android:textAlignment="center"
+                android:text="#"
+                android:textColor="#fff"
+                android:textSize="22sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:gravity="center"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
                 android:text="Price"
                 android:textColor="#fff"
                 android:textSize="22sp" />
@@ -93,6 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/poslist"
             android:layout_marginLeft="12dp"
+            android:id="@+id/button_additem"
             android:layout_marginRight="12dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/bodered_button"

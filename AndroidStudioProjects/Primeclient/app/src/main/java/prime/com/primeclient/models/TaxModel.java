@@ -1,4 +1,4 @@
-package prime.com.primeclient.models.pos;
+package prime.com.primeclient.models;
 
 /**
  * Created by BrahmaRishi on 08/02/17.
